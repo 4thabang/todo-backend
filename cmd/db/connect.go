@@ -1,6 +1,8 @@
 package db
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // ConnectDB is where we will establish database connections
 func ConnectDB() {
