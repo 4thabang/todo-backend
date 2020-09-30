@@ -9,7 +9,7 @@ func main() {
 
 	app.Get("/", hello)
 
-	app.Listen(":3000")
+	app.Listen(":8080")
 }
 
 func hello(c *fiber.Ctx) error {
