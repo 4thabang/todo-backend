@@ -2,7 +2,7 @@ package models
 
 // Todo Model
 type Todo struct {
-	id         int
-	todo       string
-	isComplete bool
+	ID         uint
+	Todo       string
+	IsComplete bool
 }
