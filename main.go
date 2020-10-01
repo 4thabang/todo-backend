@@ -1,17 +1,43 @@
 package main
 
 import (
-	"github.com/gofiber/fiber/v2"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"log"
+	"net/http"
 )
 
-func main() {
-	app := fiber.New()
-
-	app.Get("/", hello)
-
-	app.Listen(":8080")
+type todos struct {
+	UserID    int    `json:"userId"`
+	ID        int    `json:"id"`
+	Title     string `json:"title"`
+	Completed bool   `json:"completed"`
 }
 
-func hello(c *fiber.Ctx) error {
-	return c.SendString("Hello World!")
+func main() {
+	get()
+}
+
+func get() {
+	fmt.Println("Get Request")
+	resp, err := http.Get("https://jsonplaceholder.typicode.com/todos")
+	if err != nil {
+		log.Fatalln(err)
+		return
+	}
+
+	defer resp.Body.Close()
+	bodyBytes, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatalln(err)
+		return
+	}
+
+	bodyString := string(bodyBytes)
+	fmt.Println("API Res:\n" + bodyString)
+
+	var todoStruct todos
+	json.Unmarshal(bodyBytes, &todoStruct)
+	fmt.Printf("API Res Struct %+v\n", todoStruct)
 }
