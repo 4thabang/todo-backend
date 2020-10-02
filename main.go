@@ -16,6 +16,13 @@ type todos struct {
 }
 
 func main() {
+	http.HandleFunc("/todos", TodoServer)
+	http.ListenAndServe(":8080", nil)
+}
+
+// TodoServer Req/Res
+func TodoServer(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello, %s!", r.URL.Path[1:])
 	get()
 }
 
