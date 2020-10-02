@@ -22,7 +22,7 @@ func main() {
 	app.Listen(":8080")
 }
 
-// TodoServer Req/Res
+// TodoServer Function
 func TodoServer(c *fiber.Ctx) error {
 	return c.SendString("Hello, world!")
 }
