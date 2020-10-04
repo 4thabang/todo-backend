@@ -3,7 +3,7 @@
 - [ ] Create a Todo
 - [ ] Edit a Todo
 - [ ] Delete a Todo
-- [ ] Toggle a Todo as Done __boolean__
+- [ ] Toggle a Todo as Done _**boolean**_
 - [ ] Connect PostgreSQL via GORM
 - [ ] Query PostgreSQL
 - [ ] Create an Auth Flow
