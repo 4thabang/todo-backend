@@ -1,28 +1,37 @@
 package main
 
 import (
-	"github.com/gofiber/fiber/v2"
+	"encoding/json"
+	"fmt"
+	"log"
+	"net/http"
+
+	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/middleware"
 )
 
-type todos struct {
-	UserID    int    `json:"userId"`
-	ID        int    `json:"id"`
-	Title     string `json:"title"`
-	Completed bool   `json:"completed"`
-}
-
-func fiberGet() {
+type formdetails struct {
+	Name     string `json:"name"`
+	Password string `json:"password"`
 }
 
 func main() {
-	app := fiber.New()
+	r := chi.NewRouter()
 
-	app.Get("/", TodoServer)
+	accountDetails := formdetails{
+		Name:     "Thabang",
+		Password: "something",
+	}
+	var details []byte
+	details, err := json.Marshal(accountDetails)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	app.Listen(":8080")
-}
-
-// TodoServer Function
-func TodoServer(c *fiber.Ctx) error {
-	return c.SendString("Hello, world!")
+	r.Use(middleware.Logger)
+	r.Get("/", func(res http.ResponseWriter, req *http.Request) {
+		res.Write(details)
+	})
+	fmt.Println("Listening on port: 3000")
+	http.ListenAndServe(":3000", r)
 }
