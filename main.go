@@ -3,35 +3,52 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"log"
+	"io/ioutil"
 	"net/http"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 )
 
-type formdetails struct {
-	Name     string `json:"name"`
-	Password string `json:"password"`
+type event struct {
+	ID          string `json:"ID"`
+	Title       string `json:"Title"`
+	Description string `json:"Description"`
+}
+
+type allEvents []event
+
+var events = allEvents{
+	{
+		ID:          "1",
+		Title:       "Introducing golang",
+		Description: "Come join us for a chance to learn how go",
+	},
 }
 
 func main() {
-	r := chi.NewRouter()
+	router := chi.NewRouter()
 
-	accountDetails := formdetails{
-		Name:     "Thabang",
-		Password: "something",
-	}
-	var details []byte
-	details, err := json.Marshal(accountDetails)
+	router.Use(middleware.Logger)
+
+	router.Post("/create", createEvent)
+	// router.Method
+
+	fmt.Println("Listening on port `:3000`")
+
+	http.ListenAndServe(":3000", router)
+}
+
+func createEvent(w http.ResponseWriter, r *http.Request) {
+	var newEvent event
+	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Fprintf(w, "kindly enter data with the event title and desc")
 	}
 
-	r.Use(middleware.Logger)
-	r.Get("/", func(res http.ResponseWriter, req *http.Request) {
-		res.Write(details)
-	})
-	fmt.Println("Listening on port: 3000")
-	http.ListenAndServe(":3000", r)
+	json.Unmarshal(reqBody, &newEvent)
+	events = append(events, newEvent)
+	w.WriteHeader(http.StatusCreated)
+
+	json.NewEncoder(w).Encode(newEvent)
 }
