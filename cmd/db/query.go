@@ -3,6 +3,7 @@ package db
 import (
 	"encoding/json"
 	"fmt"
+	"net/http"
 )
 
 type person struct {
@@ -16,9 +17,9 @@ var persons = []person{
 }
 
 // QueryDB is where we read from our DB
-func QueryDB() {
+func QueryDB(w http.ResponseWriter) {
 	var people []person
-	err := json.Unmarshal(persons, &people)
+	err := json.NewEncoder(w).Encode(persons)
 	if err != nil {
 		panic(err)
 	}
