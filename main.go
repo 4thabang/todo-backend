@@ -39,6 +39,7 @@ func main() {
 	router.Use(middleware.Logger)
 
 	router.Post("/create", createEvent)
+	router.Get("/events", getEvents)
 	router.Get("/events/{id}", getOneEvent)
 
 	fmt.Println("Listening on port :8080")
@@ -55,8 +56,11 @@ func createEvent(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "kindly enter data with the event title and desc")
 	}
 
+	// Takes body entry value and passes it into `newEvent` in it's set structure
 	json.Unmarshal(reqBody, &newEvent)
+	// We simply append the 'newEvent' entry into the 'events' variable (database)
 	events = append(events, newEvent)
+	// HTTP status code in header
 	w.WriteHeader(http.StatusCreated)
 
 	json.NewEncoder(w).Encode(newEvent)
@@ -71,4 +75,9 @@ func getOneEvent(w http.ResponseWriter, r *http.Request) {
 			json.NewEncoder(w).Encode(singleEvent)
 		}
 	}
+}
+
+func getEvents(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(events)
 }
