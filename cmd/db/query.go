@@ -11,10 +11,9 @@ type person struct {
 	Brr  bool   `json:"brr"`
 }
 
-var persons = []byte(`[
-	{"name": "Thabang", "age": "20", "brr": "true"},
-	{"name": "Divine", "age": "2", "brr": "true"}
-]`)
+var persons = []person(
+	{Name: "Thabang", Age: 20, Brr: true}
+)
 
 // QueryDB is where we read from our DB
 func QueryDB() {
