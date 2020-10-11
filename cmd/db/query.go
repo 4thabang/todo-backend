@@ -5,7 +5,8 @@ import (
 	"fmt"
 )
 
-func main() {
+// QueryDB Exported Function
+func QueryDB() {
 	var jsonBlob = []byte(`[
 	{"Name": "Platypus", "Order": "Monotremata"},
 	{"Name": "Quoll",    "Order": "Dasyuromorphia"}
