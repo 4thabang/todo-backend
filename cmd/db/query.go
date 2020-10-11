@@ -12,8 +12,8 @@ type person struct {
 }
 
 var persons = []byte(`[
-	{"name": "Thabang", "age": "20", "brr": "true",},
-	{"name": "Divine", "age": "2", "brr": "true",}
+	{"name": "Thabang", "age": "20", "brr": "true"},
+	{"name": "Divine", "age": "2", "brr": "true"}
 ]`)
 
 // QueryDB is where we read from our DB
