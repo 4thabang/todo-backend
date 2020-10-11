@@ -32,11 +32,9 @@ var events = allEvents{
 	},
 }
 
-var (
-	router = chi.NewRouter()
-)
-
 func main() {
+	router := chi.NewRouter()
+
 	router.Use(middleware.Logger)
 
 	router.Get("/", home)
