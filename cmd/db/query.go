@@ -6,22 +6,14 @@ import (
 )
 
 type person struct {
-	Name  string `json:"name"`
-	Age   int    `json:"age"`
-	GoBrr bool   `json:"brr"`
+	Name string `json:"name"`
+	Age  int    `json:"age"`
+	Brr  bool   `json:"brr"`
 }
 
 var persons = []byte(`[
-	{
-		Name:  "Thabang",
-		Age:   20,
-		GoBrr: true,
-	},
-	{
-		Name:  "Divine",
-		Age:   2,
-		GoBrr: true,
-	},
+	{"name": "Thabang", "age": "20", "brr": "true",},
+	{"name": "Divine", "age": "2", "brr": "true",}
 ]`)
 
 // QueryDB is where we read from our DB
