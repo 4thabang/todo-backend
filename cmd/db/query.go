@@ -11,9 +11,9 @@ type person struct {
 	Brr  bool   `json:"brr"`
 }
 
-var persons = []person(
-	{Name: "Thabang", Age: 20, Brr: true}
-)
+var persons = []person{
+	{Name: "Thabang", Age: 20, Brr: true},
+}
 
 // QueryDB is where we read from our DB
 func QueryDB() {
