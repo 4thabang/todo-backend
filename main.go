@@ -61,9 +61,7 @@ func ping(w http.ResponseWriter, r *http.Request) {
 
 func createEvent(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-
 	var newEvent event
-
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		fmt.Fprintf(w, "kindly enter data with the event title and desc")
@@ -92,6 +90,7 @@ func deleteEvent(w http.ResponseWriter, r *http.Request) {
 
 func getOneEvent(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	eventID := chi.URLParam(r, "id")
 
 	for _, singleEvent := range events {
@@ -106,5 +105,6 @@ func getOneEvent(w http.ResponseWriter, r *http.Request) {
 
 func getEvents(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	json.NewEncoder(w).Encode(events)
 }
