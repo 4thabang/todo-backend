@@ -17,14 +17,6 @@ type event struct {
 	Description string `json:"description"`
 }
 
-// Todo PostgreSQL database schema in Go
-type Todo struct {
-	ID        int    `json:"id"`
-	TodoName  string `json:"todoName"`
-	Complete  bool   `json:"complete"`
-	TodoOwner string `json:"todoOwner"`
-}
-
 type allEvents []event
 
 var events = allEvents{
