@@ -42,6 +42,7 @@ func main() {
 	router.Get("/events", getEvents)
 	router.Get("/events/{id}", getOneEvent)
 	router.Delete("/events/{id}", deleteEvent)
+	router.Get("/ping", ping)
 
 	fmt.Println("\nListening on port :8080")
 
@@ -50,6 +51,10 @@ func main() {
 
 func home(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "Hello world. Welcome home")
+}
+
+func ping(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "Pong")
 }
 
 func createEvent(w http.ResponseWriter, r *http.Request) {
