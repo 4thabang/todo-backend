@@ -4,12 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 
+	"github.com/4thabang/todo-backend/cmd/db"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
-	"github.com/4thabang/todo-backend/db"
 )
 
 type event struct {
@@ -38,7 +37,7 @@ func main() {
 
 	router.Use(middleware.Logger)
 
-	route.Get("/read" db.ReadData)
+	router.Get("/read", db.ReadData)
 
 	router.Get("/", home)
 	router.Post("/create", createEvent)
@@ -62,23 +61,21 @@ func ping(w http.ResponseWriter, r *http.Request) {
 
 func createEvent(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	// Gets 'event' and uses its type structure
+
 	var newEvent event
-	// Reads the body entry
+
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		fmt.Fprintf(w, "kindly enter data with the event title and desc")
 	}
-	// Takes body entry value and passes it into `newEvent` in it's set structure
+
 	json.Unmarshal(reqBody, &newEvent)
-	// We simply append the 'newEvent' entry into the 'events' variable (database)
 	events = append(events, newEvent)
-	// HTTP status code in header
+
 	w.WriteHeader(http.StatusCreated)
-	// Writes to the body in JSON format
-	err = json.NewEncoder(w).Encode(newEvent)
-	if err != nil {
-		log.Fatalf("Error: %v\n", err)
+
+	if http.StatusOK == 200 {
+		fmt.Fprintln(w, "Post has been added!")
 	}
 }
 
