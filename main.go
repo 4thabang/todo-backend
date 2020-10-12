@@ -9,6 +9,7 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
+	"github.com/4thabang/todo-backend/db"
 )
 
 type event struct {
@@ -36,6 +37,8 @@ func main() {
 	router := chi.NewRouter()
 
 	router.Use(middleware.Logger)
+
+	route.Get("/read" db.ReadData)
 
 	router.Get("/", home)
 	router.Post("/create", createEvent)
