@@ -8,6 +8,7 @@ import (
 	"net/http"
 
 	"github.com/4thabang/todo-backend/cmd/db"
+	"github.com/4thabang/todo-backend/cmd/handler"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 )
@@ -38,9 +39,8 @@ func main() {
 
 	router.Use(middleware.Logger)
 
+	router.Get("/", handler.Handler)
 	router.Get("/read", db.ReadData)
-
-	router.Get("/", home)
 	router.Post("/create", createEvent)
 	router.Get("/events", getEvents)
 	router.Get("/events/{id}", getOneEvent)
@@ -85,7 +85,6 @@ func fetchAPI(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	var todo todos
 	json.Unmarshal(data, &todo)
 	fmt.Fprint(w, string(data))
