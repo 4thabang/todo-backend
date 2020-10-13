@@ -69,17 +69,19 @@ type todos struct {
 }
 
 func fetchAPI(w http.ResponseWriter, r *http.Request) {
-	var todo todos
+	w.Header().Set("Content-Type", "application/json")
 	res, err := http.Get("https://jsonplaceholder.typicode.com/todos")
 	if err != nil {
 		log.Fatal(err)
 	}
-	valueRes := []byte(res)
-	err = json.Unmarshal(valueRes, &todo)
+	defer res.Body.Close()
+	data, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
-	json.NewEncoder(w).Encode(res)
+	var todo todos
+	json.Unmarshal(data, &todo)
+	fmt.Fprintln(w, string(data))
 }
 
 func createEvent(w http.ResponseWriter, r *http.Request) {
