@@ -50,7 +50,10 @@ func main() {
 
 	fmt.Println("\nListening on port :8080")
 
-	http.ListenAndServe(":8080", router)
+	err := http.ListenAndServe(":8080", router)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func home(w http.ResponseWriter, r *http.Request) {
@@ -69,19 +72,23 @@ type todos struct {
 }
 
 func fetchAPI(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")
+
 	res, err := http.Get("https://jsonplaceholder.typicode.com/todos")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer res.Body.Close()
+
 	data, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	var todo todos
 	json.Unmarshal(data, &todo)
-	fmt.Fprintln(w, string(data))
+	fmt.Fprint(w, string(data))
 }
 
 func createEvent(w http.ResponseWriter, r *http.Request) {
