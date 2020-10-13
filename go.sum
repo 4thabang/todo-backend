@@ -1,5 +1,7 @@
 github.com/4thabang/todo-backend/cmd/db v0.0.0-20201012202626-250835d429aa h1:PXHAQSLE++4JYAmdP81wUcVNw3dLbDIztswJdN2DpnM=
 github.com/4thabang/todo-backend/cmd/db v0.0.0-20201012202626-250835d429aa/go.mod h1:Lb0HkeoVu8XnxK5I+h4KNEyw8/ivoF+F56onrHAYOr8=
+github.com/4thabang/todo-backend/cmd/handler v0.0.0-20201013195035-b8d3557ba1ec h1:hgCxdqUNk+qUeehzsmyQTEuHku1QgYPq3ITBHRjpyy0=
+github.com/4thabang/todo-backend/cmd/handler v0.0.0-20201013195035-b8d3557ba1ec/go.mod h1:f9NA3ANrpriXXUoRXSgcxjoEi+l5D//zeD496m2Jgn8=
 github.com/andybalholm/brotli v1.0.0 h1:7UCwP93aiSfvWpapti8g88vVVGp2qqtGyePsSuDafo4=
 github.com/andybalholm/brotli v1.0.0/go.mod h1:loMXtMfwqflxFJPmdbJO0a3KNoPuLBgiu3qAvBg8x/Y=
 github.com/go-chi/chi v1.0.0 h1:s/kv1cTXfivYjdKJdyUzNGyAWZ/2t7duW1gKn5ivu+c=
