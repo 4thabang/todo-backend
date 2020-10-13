@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 
 	"github.com/4thabang/todo-backend/cmd/db"
@@ -45,6 +46,7 @@ func main() {
 	router.Get("/events/{id}", getOneEvent)
 	router.Delete("/events/{id}", deleteEvent)
 	router.Get("/ping", ping)
+	router.Get("/api", fetchAPI)
 
 	fmt.Println("\nListening on port :8080")
 
@@ -57,6 +59,27 @@ func home(w http.ResponseWriter, r *http.Request) {
 
 func ping(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "Pong")
+}
+
+type todos struct {
+	UserID     int    `json:"userId"`
+	ID         int    `json:"id"`
+	Title      string `json:"title"`
+	Complteted bool   `json:"completed"`
+}
+
+func fetchAPI(w http.ResponseWriter, r *http.Request) {
+	var todo todos
+	res, err := http.Get("https://jsonplaceholder.typicode.com/todos")
+	if err != nil {
+		log.Fatal(err)
+	}
+	valueRes := []byte(res)
+	err = json.Unmarshal(valueRes, &todo)
+	if err != nil {
+		log.Fatal(err)
+	}
+	json.NewEncoder(w).Encode(res)
 }
 
 func createEvent(w http.ResponseWriter, r *http.Request) {
