@@ -7,7 +7,6 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/4thabang/todo-backend/cmd/db"
 	"github.com/4thabang/todo-backend/cmd/handler"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
@@ -40,13 +39,12 @@ func main() {
 	router.Use(middleware.Logger)
 
 	router.Get("/", handler.Handler)
-	router.Get("/read", db.ReadData)
+	router.Get("/api", fetchAPI)
 	router.Post("/create", createEvent)
 	router.Get("/events", getEvents)
 	router.Get("/events/{id}", getOneEvent)
 	router.Delete("/events/{id}", deleteEvent)
 	router.Get("/ping", ping)
-	router.Get("/api", fetchAPI)
 
 	fmt.Println("\nListening on port :8080")
 
