@@ -19,6 +19,7 @@ func main() {
 
 	r.Get("/", httpServe)
 
+	fmt.Println("Running on Port :8080")
 	http.ListenAndServe(":8080", r)
 }
 
