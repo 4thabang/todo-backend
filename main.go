@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -35,16 +34,13 @@ type todoStr struct {
 
 func httpServe(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	res, err := http.Get("")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	res, err := http.Get("https://jsonplaceholder.typicode.com/posts")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer res.Body.Close()
 	data, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
-	err = json.Unmarshal(data, &todoStr)
 	if err != nil {
 		log.Fatal(err)
 	}
