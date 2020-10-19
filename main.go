@@ -33,16 +33,26 @@ type todoStr struct {
 }
 
 func httpServe(w http.ResponseWriter, r *http.Request) {
+	// Set HTTP Headers for JSON and CORS access
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
+
+	// Create a HTTP GET request and handle err
 	res, err := http.Get("https://jsonplaceholder.typicode.com/posts")
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	// Close the body last w/ 'defer'
 	defer res.Body.Close()
+
+	// Reads data from body and returns w/ err handler
 	data, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Fprint(w, string(data))
+
+	// Print read values in string JSON format
+	fmt.Println(string(data))
+	fmt.Fprintln(w, string(data))
 }
