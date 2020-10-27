@@ -39,13 +39,13 @@ func main() {
 	r.Use(middleware.Logger)
 
 	r.Get("/", handler.Handler)
+	r.Get("/favicon.ico", handleFavicon)
 	r.Get("/api", fetchAPI)
 	r.Post("/create", createEvent)
 	r.Get("/events", getEvents)
 	r.Get("/events/{id}", getOneEvent)
 	r.Delete("/events/{id}", deleteEvent)
 	r.Get("/ping", ping)
-	r.Get("/favicon.ico", handleFavicon)
 
 	fmt.Println("\nListening on port :8080")
 
