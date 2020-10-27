@@ -47,9 +47,9 @@ func main() {
 	r.Get("/ping", ping)
 	r.Get("/favicon.ico", handleFavicon)
 
-	fmt.Println("\nListening on port :3000")
+	fmt.Println("\nListening on port :8080")
 
-	err := http.ListenAndServe(":3000", r)
+	err := http.ListenAndServe(":8080", r)
 	if err != nil {
 		log.Fatal(err)
 	}
