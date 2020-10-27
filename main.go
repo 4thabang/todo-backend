@@ -34,24 +34,29 @@ var events = allEvents{
 }
 
 func main() {
-	router := chi.NewRouter()
+	r := chi.NewRouter()
 
-	router.Use(middleware.Logger)
+	r.Use(middleware.Logger)
 
-	router.Get("/", handler.Handler)
-	router.Get("/api", fetchAPI)
-	router.Post("/create", createEvent)
-	router.Get("/events", getEvents)
-	router.Get("/events/{id}", getOneEvent)
-	router.Delete("/events/{id}", deleteEvent)
-	router.Get("/ping", ping)
+	r.Get("/", handler.Handler)
+	r.Get("/api", fetchAPI)
+	r.Post("/create", createEvent)
+	r.Get("/events", getEvents)
+	r.Get("/events/{id}", getOneEvent)
+	r.Delete("/events/{id}", deleteEvent)
+	r.Get("/ping", ping)
+	r.Get("/favicon.ico", handleFavicon)
 
 	fmt.Println("\nListening on port :3000")
 
-	err := http.ListenAndServe(":3000", router)
+	err := http.ListenAndServe(":3000", r)
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func handleFavicon(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "https://www.nicepng.com/png/full/109-1095724_view-favicon-on-t-shirt-cute-favicon.png")
 }
 
 func home(w http.ResponseWriter, r *http.Request) {
