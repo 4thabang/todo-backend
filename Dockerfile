@@ -1,13 +1,14 @@
-FROM golang:1.15-alpine as base
+# Telling to use Docker's golang ready image
+FROM golang:latest
 # Create app folder 
-RUN mkdir /main
+RUN mkdir /app
 # Copy our file in the host contianer to our contianer
-ADD . /main
-# Set /main to the go folder as workdir
-WORKDIR /main
-# Generate binary file from our /main
-RUN go build
+ADD . /app
+# Set /app to the go folder as workdir
+WORKDIR /app
+# Generate binary file from our /app
+RUN go build main.go
 # Expose the port 3000
-EXPOSE 3000:3000
-# Run the main binarry file 
-CMD ["./main"]
+EXPOSE 8080:8080
+# Run the app binarry file 
+CMD ["./app"]
