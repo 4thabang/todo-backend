@@ -11,4 +11,4 @@ RUN go build main.go
 # Expose the port 3000
 EXPOSE 8080:8080
 # Run the app binarry file 
-CMD ["./app"]
+CMD ["./main"]
