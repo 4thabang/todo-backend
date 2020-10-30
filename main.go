@@ -47,7 +47,7 @@ func main() {
 	r.Delete("/events/{id}", deleteEvent)
 	r.Get("/ping", ping)
 
-	fmt.Println("\nListening on port :8080")
+	fmt.Println("Listening on port :8080")
 
 	err := http.ListenAndServe(":8080", r)
 	if err != nil {
@@ -56,7 +56,7 @@ func main() {
 }
 
 func handleFavicon(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "https://www.nicepng.com/png/full/109-1095724_view-favicon-on-t-shirt-cute-favicon.png")
+	http.ServeFile(w, r, "...")
 }
 
 func home(w http.ResponseWriter, r *http.Request) {
@@ -64,7 +64,11 @@ func home(w http.ResponseWriter, r *http.Request) {
 }
 
 func ping(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Pong")
+	pong := []byte("Pong")
+	_, err := w.Write(pong)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 type todos struct {
