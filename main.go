@@ -93,7 +93,7 @@ func fetchAPI(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 	var todo todos
-	json.Unmarshal(data, &todo)
+	json.Unmarshal(data, &too)
 	fmt.Fprint(w, string(data))
 }
 
