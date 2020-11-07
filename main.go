@@ -82,7 +82,7 @@ func fetchAPI(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")
 
-	res, err := http.Get("https://jsonplaceholder.typicode.com/todos")
+	res, err := http.Get("https://api.sandbox.stuart.com/health")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -92,9 +92,9 @@ func fetchAPI(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	var todo todos
-	json.Unmarshal(data, &todo)
-	fmt.Fprint(w, string(data))
+	d2 := []byte(data)
+	w.Write(d2)
+	fmt.Println(string(data))
 }
 
 func createEvent(w http.ResponseWriter, r *http.Request) {
