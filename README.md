@@ -9,3 +9,4 @@
 - [ ] Create an Auth Flow
 - [ ] Get Go JWT
 - [ ] Caching
+- [ ] Create Custom Logger
